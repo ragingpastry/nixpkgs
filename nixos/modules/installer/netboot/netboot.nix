@@ -29,6 +29,16 @@ with lib;
           then []
           else [ pkgs.grub2 pkgs.syslinux ]);
 
+    # By default, using netboot images in virtualized contexts
+    # should not create any disk image ideally, except if
+    # asked explicitly.
+    virtualisation.diskImage = mkDefault null;
+    # We do not want to mount the host Nix store in those situations.
+    virtualisation.mountHostNixStore = mkDefault false;
+    # Though, we still want a writable store through .rw-store
+    virtualisation.writableStore = mkDefault true;
+    boot.initrd.systemd.enable = false;
+
     fileSystems."/" = mkImageMediaOverride
       { fsType = "tmpfs";
         options = [ "mode=0755" ];

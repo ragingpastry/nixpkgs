@@ -63,6 +63,7 @@ let
             [
               ../modules/installer/netboot/netboot-minimal.nix
               ../modules/testing/test-instrumentation.nix
+              ../lib/testing/nixos-test-base.nix
               {
                 system.nixos.revision = mkForce "constant-nixos-revision";
                 documentation.enable = false;
